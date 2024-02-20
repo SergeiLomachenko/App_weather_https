@@ -9,15 +9,15 @@ stages:
   - build
   - deploy
 
-# unit_tests:
-#   stage: test
-#   image: python:3.9-slim-buster
-#   before_script:
-#     - pip install flask
-#     - pip install requests
-#     - pip install sqlalchemy schedule
-#   script:
-#     - python -m unittest test_database_connection.py
+unit_tests:
+  stage: test
+  image: python:3.9-slim-buster
+  before_script:
+    - pip install flask
+    - pip install requests
+    - pip install sqlalchemy schedule
+  script:
+    - python -m unittest test_database_connection.py
 
 # lint_tests:
 #   stage: test
@@ -68,13 +68,7 @@ deploy:
     - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST
     - scp -o StrictHostKeyChecking=no -i $KEY -r $CI_PROJECT_DIR/* $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
     - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo apt update && sudo apt upgrade -y && sudo apt install -y python3-pip && sudo pip install --no-cache-dir --no-warn-script-location -r requirements.txt"
-    - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo apt update"
-    - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo apt install -y nginx"
-    - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo lsof -ti tcp:80 | xargs -r sudo kill -9"
-    - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo systemctl start nginx "
-    #- ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo systemctl disable apache2"
-    #- ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo update-rc.d apache2 disable"
-    - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo lsof -ti tcp:80 | xargs -r sudo kill -9 && sudo apt install -y docker.io && sudo systemctl start docker && sudo systemctl restart docker && sudo apt install -y docker-compose && cd /home/ubuntu && sudo docker-compose build && sudo docker-compose up -d && sudo systemctl start nginx && sudo docker-compose restart"
+    - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo apt install -y docker.io && sudo systemctl start docker && sudo systemctl restart docker && sudo apt install -y docker-compose && cd /home/ubuntu && sudo docker-compose build && sudo docker-compose up -d && sudo docker-compose restart"
 
 
 
