@@ -68,6 +68,7 @@ deploy:
     - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST
     - scp -o StrictHostKeyChecking=no -i $KEY -r $CI_PROJECT_DIR/* $REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH
     - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo apt update && sudo apt upgrade -y && sudo apt install -y python3-pip && sudo pip install --no-cache-dir --no-warn-script-location -r requirements.txt"
+    - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo apt update && sudo apt install -y nginx && sudo lsof -ti tcp:80 | xargs -r sudo kill -9 && sudo systemctl start nginx"
     - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo apt install -y docker.io && sudo systemctl start docker && sudo systemctl restart docker && sudo apt install -y docker-compose && cd /home/ubuntu && sudo docker-compose build && sudo docker-compose up -d && sudo docker-compose restart"
 
 

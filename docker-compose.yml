@@ -2,6 +2,7 @@ version: '3'
 services:
   mariadb:
     image: mariadb:10.5
+    container_name: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: 1111
       MYSQL_DATABASE: weather_sergey
@@ -25,6 +26,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile  
+    container_name: python-app
     ports:
       - "5000:5000"      
     depends_on:
@@ -38,6 +40,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_php
+    container_name: web
     ports:
       - "80:80"
     volumes:
