@@ -1,8 +1,20 @@
 FROM php:7.4
 
+RUN apt-get update && apt-get install -y nginx
+
+RUN rm /etc/nginx/sites-enabled/default
+
+COPY web.conf /etc/nginx/sites-available/default
+
 # Устанавливаем расширение MySQLi
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
+COPY index.php /var/www/html/index.php
+
+COPY start_services.sh /usr/local/bin/start_services.sh
+
+RUN chmod +x /usr/local/bin/start_services.sh
+
 EXPOSE 8080
 
-COPY index.php /var/www/html/index.php
+CMD ["/usr/local/bin/start_services.sh"]
