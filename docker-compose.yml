@@ -43,7 +43,7 @@ services:
     container_name: web
     ports:
       - "8080:8080"
-      - "8443:8443"
+      - "80:80"
     volumes:
       - ./index.php:/var/www/html/index.php
       - ./nginx.conf:/etc/nginx/nginx.conf
