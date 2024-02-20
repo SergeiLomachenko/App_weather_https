@@ -42,7 +42,7 @@ services:
       dockerfile: Dockerfile_php
     container_name: web
     ports:
-      - "8080:8080"
+      - "80:80"
     volumes:
       - ./index.php:/var/www/html/index.php
     depends_on:
