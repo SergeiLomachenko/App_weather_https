@@ -1,0 +1,21 @@
+# Используем образ с поддержкой PHP и Nginx
+FROM php:7.4-fpm
+
+# Установка дополнительных пакетов, необходимых для Nginx и вашего веб-приложения
+RUN apt-get update && apt-get install -y nginx
+
+COPY start.sh /usr/local/bin/start.sh
+
+RUN chmod +x /usr/local/bin/start.sh
+
+# Копируем конфигурацию Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Копируем ваше веб-приложение в директорию по умолчанию Nginx
+COPY index.php /var/www/html/index.php
+
+# Открываем порт 8443 для веб-сервера Nginx
+EXPOSE 8443
+
+# Запуск Nginx и PHP-FPM при старте контейнера
+CMD ["/usr/local/bin/start.sh"]
