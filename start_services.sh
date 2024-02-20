@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Запускаем Nginx в фоновом режиме
-nginx
+php-fpm &
 
-# Запускаем PHP-FPM
-php-fpm
+nginx -g 'daemon off;'
+
