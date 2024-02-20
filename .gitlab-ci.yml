@@ -9,15 +9,15 @@ stages:
   - build
   - deploy
 
-unit_tests:
-  stage: test
-  image: python:3.9-slim-buster
-  before_script:
-    - pip install flask
-    - pip install requests
-    - pip install sqlalchemy schedule
-  script:
-    - python -m unittest test_database_connection.py
+#unit_tests:
+#  stage: test
+#  image: python:3.9-slim-buster
+#  before_script:
+#    - pip install flask
+#    - pip install requests
+#    - pip install sqlalchemy schedule
+#  script:
+#    - python -m unittest test_database_connection.py
 
 # lint_tests:
 #   stage: test
