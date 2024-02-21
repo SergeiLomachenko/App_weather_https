@@ -44,7 +44,7 @@ services:
     expose:
       - 8080
     volumes:
-      - ./index.php:/var/www/html/
+      - ./index.php:/var/www/html/index.php
     depends_on:
       - mariadb
     restart: always
@@ -58,7 +58,7 @@ services:
     ports:
       - 80:80  
     volumes:
-        - ./index.php:/var/www/html/
+        - ./index.php:/var/www/html/index.php
 
 networks:
   app-network:
