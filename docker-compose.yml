@@ -58,8 +58,10 @@ services:
     container_name: nginx
     ports:
       - 80:80  
+      - 443:443
     volumes:
         - ./index.php:/var/www/html/index.php
+    #    - /etc/letsencrypt/live/sergeyweather.ddns.net/:/
     depends_on:
       - web
     networks:
