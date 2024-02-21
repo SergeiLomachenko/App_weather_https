@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
   mariadb:
     image: mariadb:10.5
@@ -37,19 +37,24 @@ services:
       - bd-network
 
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile_php
+    build: Dockerfile_php
     container_name: web
-    ports:
-      - "80:80"
+    expose:
+      - 8080
     volumes:
-      - ./index.php:/var/www/html/index.php
+      - ./index.php:/var/www/html/
     depends_on:
       - mariadb
     restart: always
     networks:
       - app-network
+
+  nginx:
+    build: Dockerfile.nginx
+    ports:
+      - 80:80  
+    volumes:
+        - ./index.php:/var/www/html/
 
 networks:
   app-network:
