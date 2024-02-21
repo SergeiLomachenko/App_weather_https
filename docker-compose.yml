@@ -59,6 +59,10 @@ services:
       - 80:80  
     volumes:
         - ./index.php:/var/www/html/index.php
+    depends_on:
+      - web
+    networks:
+      - app-network
 
 networks:
   app-network:
