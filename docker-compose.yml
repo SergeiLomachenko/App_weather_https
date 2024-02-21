@@ -38,8 +38,8 @@ services:
 
   web:
     build: 
-      - context: .
-      - image: Dockerfile_php    
+      context: .
+      dockerfile: Dockerfile_php    
     container_name: web
     expose:
       - 8080
