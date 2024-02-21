@@ -52,7 +52,9 @@ services:
       - app-network
 
   nginx:
-    build: Dockerfile_nginx
+    build: 
+      context: .
+      dockerfile: Dockerfile_nginx
     ports:
       - 80:80  
     volumes:
