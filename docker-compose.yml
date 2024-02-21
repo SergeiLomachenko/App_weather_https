@@ -37,7 +37,9 @@ services:
       - bd-network
 
   web:
-    build: Dockerfile_php
+    build: 
+      - context: .
+      - image: Dockerfile_php    
     container_name: web
     expose:
       - 8080
@@ -50,7 +52,7 @@ services:
       - app-network
 
   nginx:
-    build: Dockerfile.nginx
+    build: Dockerfile_nginx
     ports:
       - 80:80  
     volumes:
