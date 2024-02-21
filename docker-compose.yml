@@ -41,8 +41,10 @@ services:
       context: .
       dockerfile: Dockerfile_php    
     container_name: web
-    expose:
-      - 9000
+    ports:
+      - 9000:9000 
+    # expose:
+    #   - 9000
     volumes:
       - ./index.php:/var/www/html/index.php
     depends_on:
@@ -60,8 +62,7 @@ services:
       - 80:80  
       - 443:443
     volumes:
-        - ./index.php:/var/www/html/index.php
-    #    - /etc/letsencrypt/live/sergeyweather.ddns.net/:/
+        - ./index.php:/var/www/html/index.php 
     depends_on:
       - web
     networks:
