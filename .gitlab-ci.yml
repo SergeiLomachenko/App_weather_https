@@ -74,6 +74,12 @@ deploy:
         #sudo lsof -ti tcp:80 | xargs -r sudo kill -9 &&
         #sudo rm /etc/nginx/sites-enabled/sergey_config
 
+    - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo apt-get update && sudo apt-get install certbot python3-certbot-nginx -y"
+    - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo certbot --nginx --agree-tos --redirect --email sergei.lomachenko@innowise.com -d sergeyweather.ddns.net --non-interactive && sudo lsof -ti tcp:80 | xargs -r sudo kill -9"
+    - ssh -o StrictHostKeyChecking=no -i $KEY $REMOTE_USER@$REMOTE_HOST "sudo docker cp /etc/letsencrypt/live/sergeyweather.ddns.net/fullchain.pem nginx:/etc/nginx/certs/ && sudo docker cp /etc/letsencrypt/live/sergeyweather.ddns.net/privkey.pem nginx:/etc/nginx/certs/ && sudo docker restart nginx"    
+
+
+
 
 
 
